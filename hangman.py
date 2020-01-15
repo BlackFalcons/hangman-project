@@ -28,6 +28,7 @@ if not isfile("ordliste.txt"):
 
 # Hangman kode starter her, dette er etter vi har lastet ned filen.
 if isfile("ordliste.txt"):
+    clearScreen()
     print("Welcome to hangman!\n")
     hangman_word = open("./ordliste.txt", encoding="utf8").readlines()
     print(f"Your random word is {get_random(hangman_word)}")
