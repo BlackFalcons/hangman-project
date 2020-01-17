@@ -6,6 +6,10 @@ from os import system as command
 from random import choice as get_random
 
 
+def getLower(prompt):
+    return input(prompt).lower()
+
+
 def downloadFile(url, filename):
     file = get(url)
     open(filename, "wb").write(file.content)
@@ -30,5 +34,17 @@ if not isfile("ordliste.txt"):
 if isfile("ordliste.txt"):
     clearScreen()
     print("Welcome to hangman!\n")
-    hangman_word = open("./ordliste.txt", encoding="utf8").readlines()
-    print(f"Your random word is {get_random(hangman_word)}")
+    word_list = open("./ordliste.txt", encoding="utf8").readlines()
+    hangman_word = get_random(word_list)
+    print(f"Your random word is {hangman_word}")
+    guess = getLower("Guess a letter or word: ")
+    correct_guesses = []
+
+    # Disassemble the person guess and the hangman word.
+    for guess_letter in guess:
+        for word_letter in hangman_word:
+            if guess_letter == word_letter:
+                correct_guesses.append(guess_letter)
+                print(guess_letter)
+
+    # Assemble the person guess and the hangman word.
