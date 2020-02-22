@@ -6,16 +6,16 @@ from os import system as command
 from random import choice as get_random
 
 
-def getLower(prompt):
+def get_lower(prompt):
     return input(prompt).lower()
 
 
-def downloadFile(url, filename):
+def download_file(url, filename):
     file = get(url)
     open(filename, "wb").write(file.content)
 
 
-def clearScreen():
+def clear_screen():
     if currentplatform() == "Windows":
         command("cls")
     else:
@@ -25,26 +25,32 @@ def clearScreen():
 if not isfile("ordliste.txt"):
     print("File not found, downloading...")
     fileLocation = "https://raw.githubusercontent.com/0301/ordliste/master/ordliste_snl_fellesord.txt"
-    downloadFile(fileLocation, "./ordliste.txt")
-    clearScreen()
+    download_file(fileLocation, "./ordliste.txt")
+
+    clear_screen()
     print("Download complete!")
     sleep(2)
 
 # Hangman kode starter her, dette er etter vi har lastet ned filen.
 if isfile("ordliste.txt"):
-    clearScreen()
+    clear_screen()
+
     print("Welcome to hangman!\n")
     word_list = open("./ordliste.txt", encoding="utf8").readlines()
     hangman_word = get_random(word_list)
+
+    while len(hangman_word) < 3:
+        hangman_word = get_random(word_list)
+
     print(f"Your random word is {hangman_word}")
-    guess = getLower("Guess a letter or word: ")
-    correct_guesses = []
-
-    # Disassemble the person guess and the hangman word.
-    for guess_letter in guess:
-        for word_letter in hangman_word:
-            if guess_letter == word_letter:
-                correct_guesses.append(guess_letter)
-                print(guess_letter)
-
-    # Assemble the person guess and the hangman word.
+    while True:
+        guess = get_lower("\nGuess a letter or word: ")
+        if hangman_word == guess:
+            print(f"You guessed the correct word which was {hangman_word}")
+            break
+        else:
+            for character in guess:
+                if character in hangman_word:
+                    print(character, end='')
+                else:
+                    print("_", end='')
