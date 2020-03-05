@@ -104,7 +104,7 @@ navn = input("Hva heter du? ").capitalize()
 
 # en koselig innledning
 print(f"Hei {navn}, vi skal spille hangman.")
-# wait (2)  # Vent 2 sekunder før programmet går videre
+wait(2)  # Vent 2 sekunder før programmet går videre
 
 
 # tekststrenger start å gjette kommer opp
