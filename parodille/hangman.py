@@ -2,6 +2,38 @@ from time import sleep as wait
 from random import choice as rand_choice
 
 
+def gjett_bokstav():  # Returns a valid guessing value
+    # lager en definisjon på ordgjetting slik at spilleren kan gjøre feil, men programmet vil ikke påvirkers.
+
+    alfabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ"
+
+    bokstav_gjettet = input("Gjett en bokstav: ").upper()
+
+    print()  # et lite mellomrom
+
+    # hvis gjetting allerede er i hemmelig ord printes dette
+    if bokstav_gjettet in gjettede_bokstaver:
+        print(f"   {bokstav_gjettet}  Har allerede blitt valgt, velg en annen bokstav")
+    elif len(bokstav_gjettet) != 1:
+        print(f"  Du kan bare skrive en bokstav om gangen")
+    elif bokstav_gjettet not in alfabet:
+        print(f"  {bokstav_gjettet}  Er ikke en bokstav, du kan bare velge bokstaver")
+    else:
+        gjettede_bokstaver.append(bokstav_gjettet)  # legger inn gjetting i gjettede bokstaver.
+        return bokstav_gjettet
+
+
+def galgen(antall_feil):
+    if antall_feil < 6:
+        print(galge[antall_feil + 1])  # Printer galgen, bygger på mer på galgen etter hver feil.
+        return False
+    else:
+        print(galge[antall_feil + 1])
+        print(f"\n                  Du har tapt. Ordet var {hemmelig_ord}")  # printer dette etter all feilen.
+        #  slutter while løkka hvis dette er sant
+        return True
+
+
 """Dette programmet er spillet hangman. Så det tar et tilfeldig ord og
 spilleren/personen som leser dette programmet får
  7 sjanser til å gjette ordet."""
@@ -67,37 +99,12 @@ galge = ['''
        ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆
        ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆''']
 
-
-def gjett_bokstav():  # Returns a valid guessing value
-    # lager en definisjon på ordgjetting slik at spilleren kan gjøre feil, men programmet vil ikke påvirkers.
-
-    alfabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ"
-
-    print(f"\n{hemmelig_ord}")
-    bokstav_gjettet = input("Gjett en bokstav: ")
-
-    bokstav_gjettet = bokstav_gjettet.upper()  # slik at man får store bokstaver uavhengig av hva spiller taster
-
-    print()  # et lite mellomrom
-
-    # hvis gjetting allerede er i hemmelig ord printes dette
-    if bokstav_gjettet in gjettede_bokstaver:
-        print(f"   {bokstav_gjettet}  Har allerede blitt valgt, velg en annen bokstav")
-    elif len(bokstav_gjettet) != 1:
-        print(f"  Du kan bare skrive en bokstav om gangen")
-    elif bokstav_gjettet not in alfabet:
-        print(f"  {bokstav_gjettet}  Er ikke en bokstav, du kan bare velge bokstaver")
-    else:
-        gjettede_bokstaver.append(bokstav_gjettet)  # legger inn gjetting i gjettede bokstaver.
-        return bokstav_gjettet
-
-
 # importerer en laget ordliste fra dokumenter
 with open('ordliste.txt') as fil:
     ordliste = fil.readlines()
 
-gjettede_bokstaver = []
-tilfeldig = rand_choice(ordliste)  # det blir trukket ut et tilfeldig ord fra ordlisten hver gang programmet kjøres.
+
+hemmelig_ord = rand_choice(ordliste).upper().strip()  # Hent hemmelig ord fra ordliste
 
 # spør om navn for å være hyggelig
 navn = input("Hva heter du? ").capitalize()
