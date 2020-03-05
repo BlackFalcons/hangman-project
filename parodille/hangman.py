@@ -34,6 +34,18 @@ def galgen(antall_feil):
         return True
 
 
+def seier(riktige_bokstaver, hemmelige_ordet):
+    riktige_bokstaver_len = len(riktige_bokstaver)
+    hemmelig_ord_len = len(hemmelige_ordet)
+
+    print(f"riktige: {riktige_bokstaver_len}\nOrd lengde: {hemmelig_ord_len}")
+    # Viser at brukeren har vunnet
+    if riktige_bokstaver_len == hemmelig_ord_len:
+        print(galge[8])  # printer ut vinner bilde
+        # slutter while løkka hvis dette er feil
+        return False
+
+
 """Dette programmet er spillet hangman. Så det tar et tilfeldig ord og
 spilleren/personen som leser dette programmet får
  7 sjanser til å gjette ordet."""
@@ -106,61 +118,46 @@ with open('ordliste.txt') as fil:
 
 hemmelig_ord = rand_choice(ordliste).upper().strip()  # Hent hemmelig ord fra ordliste
 
-# spør om navn for å være hyggelig
+# Spør om navn for å være hyggelig
 navn = input("Hva heter du? ").capitalize()
 
-# en koselig innledning
+# En koselig innledning
 print(f"Hei {navn}, vi skal spille hangman.")
 wait(2)  # Vent 2 sekunder før programmet går videre
 
-
-# tekststrenger start å gjette kommer opp
+# Tekststrenger start å gjette kommer opp
 print("Start å gjette...")
 
-hemmelig_ord = tilfeldig.upper().strip()
-#  .strip() Fjerner mellomrom
-#  .upper() slik at det ikke spiller noen rolle om spilleren bruker store eller små bokstaver. Får alt i store bokstaver, det ser kult ut.
+blanks = '-' * len(hemmelig_ord)  # Printer - for hver bokstav av lengden i hemmelig ord
 
-
-blanks = '-' * len(hemmelig_ord)  # printer - for hver bokstav av lengden i hemmelig ord
 feil = -1
 riktige = []
-running = True
 
-while running:
-    for index, hemmelig_bokstav in enumerate(hemmelig_ord):  # i er en variabel
+gjettede_bokstaver = []
+
+while True:
+    for index, hemmelig_bokstav in enumerate(hemmelig_ord):  # Lager en index og iterer over bokstavene
         if hemmelig_bokstav in gjettede_bokstaver:
             blanks = blanks[:index] + hemmelig_ord[index] + blanks[index + 1:]
-            # blanks = -, så printes ut en - for hver bokstav i hemmelig ord
-            print(riktige)
+            # Blanks = -, så printes ut en - for hver bokstav i hemmelig ord
             if hemmelig_ord.count(hemmelig_bokstav) != riktige.count(hemmelig_bokstav):
                 riktige.append(hemmelig_bokstav)
-            print("\n" * 7)  # får 7 linjeskift.
+            print("\n" * 7)  # Får 7 linjeskift.
 
-    if feil < 6:
-        print(galge[feil + 1])  # Printer galgen, bygger på mer på galgen etter hver feil.
-    else:
-        print(galge[feil + 1])
-        print(f"\n                  Du har tapt. Ordet var {hemmelig_ord}")  # printer dette etter all feilen.
-        #  slutter while løkka hvis dette er sant
-        running = False
+    if galgen(feil):  # Returnerer "True" om for mange feil.
         break
-    print(f"riktige: {len(riktige)}\nOrd lengde: {len(hemmelig_ord)}")
-    # Viser at brukeren har vunnet
-    if len(riktige) == len(hemmelig_ord):
-        print(galge[8])  # printer ut vinner bilde
-        # slutter while løkka hvis dette er feil
-        running = False
+
+    if seier(riktige, hemmelig_ord):
         break
 
     print("\n               " + blanks + "")
     print("\n\n         ", end='  ')
 
     for bokstav in gjettede_bokstaver:
-        # for hver verdi i gjettede_bokstaver printer den hver verdi i listen
+        # For hver verdi i gjettede_bokstaver printer den hver verdi i listen
         print("", end='')
         print(bokstav, end='')
 
-    hent_gjetting = gjett_bokstav()  # lager en ny variabel som henter gjettingen
-    if hent_gjetting and hent_gjetting not in hemmelig_ord:  # hvis gjetting ikke er i ordet
-        feil += 1  # blir et plusset på en feil
+    hent_gjetting = gjett_bokstav()  # Lager en ny variabel som henter gjettingen
+    if hent_gjetting and hent_gjetting not in hemmelig_ord:  # Hvis gjetting ikke er i ordet
+        feil += 1  # Blir et plusset på en feil
