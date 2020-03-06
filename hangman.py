@@ -22,11 +22,18 @@ def clear_screen():
         command("clear")
 
 
+# def compare_strings(first_string, secound_string):
+#     correct_guesses = []
+#     for letter_one, letter_two in zip(first_string, secound_string):
+#         if letter_one == letter_two:
+#             correct_guesses.append(letter_one)
+#     return correct_guesses
+
+
 if not isfile("ordliste.txt"):
     print("File not found, downloading...")
     fileLocation = "https://raw.githubusercontent.com/0301/ordliste/master/ordliste_snl_fellesord.txt"
     download_file(fileLocation, "./ordliste.txt")
-
     clear_screen()
     print("Download complete!")
     sleep(2)
@@ -34,23 +41,11 @@ if not isfile("ordliste.txt"):
 # Hangman kode starter her, dette er etter vi har lastet ned filen.
 if isfile("ordliste.txt"):
     clear_screen()
-
     print("Welcome to hangman!\n")
     word_list = open("./ordliste.txt", encoding="utf8").readlines()
     hangman_word = get_random(word_list)
-
-    while len(hangman_word) < 3:
-        hangman_word = get_random(word_list)
-
     print(f"Your random word is {hangman_word}")
-    while True:
-        guess = get_lower("\nGuess a letter or word: ")
-        if hangman_word == guess:
-            print(f"You guessed the correct word which was {hangman_word}")
-            break
-        else:
-            for character in guess:
-                if character in hangman_word:
-                    print(character, end='')
-                else:
-                    print("_", end='')
+    guess = get_lower("Guess a letter or word: ")
+
+    word_set = {}  # contains a set of uniqe letters https://docs.python.org/3.8/library/stdtypes.html#set
+    print(word_set)
