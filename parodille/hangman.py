@@ -112,7 +112,7 @@ galge = ['''
        ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆''']
 
 # importerer en laget ordliste fra dokumenter
-with open('ordliste.txt') as fil:
+with open('ordliste.txt', encoding="utf8") as fil:
     ordliste = fil.readlines()
 
 
