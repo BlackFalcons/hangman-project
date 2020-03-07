@@ -2,22 +2,21 @@ from time import sleep as wait
 from random import choice as rand_choice
 
 
-def gjett_bokstav():  # Returns a valid guessing value
-    # lager en definisjon på ordgjetting slik at spilleren kan gjøre feil, men programmet vil ikke påvirkers.
+def gjett_bokstav():  # Returnerer en gjettet bokstav om den følger kriteriene.
 
     alfabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ"
 
     bokstav_gjettet = input("Gjett en bokstav: ").upper()
 
-    print()  # et lite mellomrom
+    print()
 
     # hvis gjetting allerede er i hemmelig ord printes dette
     if bokstav_gjettet in gjettede_bokstaver:
-        print(f"   {bokstav_gjettet}  Har allerede blitt valgt, velg en annen bokstav")
+        print(f"  \"{bokstav_gjettet}\" Har allerede blitt valgt, velg en annen bokstav.")
     elif len(bokstav_gjettet) != 1:
-        print(f"  Du kan bare skrive en bokstav om gangen")
+        print(f"  Du kan bare skrive en bokstav om gangen.")
     elif bokstav_gjettet not in alfabet:
-        print(f"  {bokstav_gjettet}  Er ikke en bokstav, du kan bare velge bokstaver")
+        print(f"  \"{bokstav_gjettet}\" Er ikke en bokstav, du kan kun velge bokstaver.")
     else:
         gjettede_bokstaver.append(bokstav_gjettet)  # legger inn gjetting i gjettede bokstaver.
         return bokstav_gjettet
@@ -25,11 +24,11 @@ def gjett_bokstav():  # Returns a valid guessing value
 
 def galgen(antall_feil):
     if antall_feil < 6:
-        print(galge[antall_feil + 1])  # Printer galgen, bygger på mer på galgen etter hver feil.
+        print(galge[antall_feil + 1])  # Printer galgen etter hvor mange feil brukeren har.
         return False
     else:
         print(galge[antall_feil + 1])
-        print(f"\n                  Du har tapt. Ordet var {hemmelig_ord}")  # printer dette etter all feilen.
+        print(f"\n                  Du har tapt. Ordet var {hemmelig_ord}")
         #  slutter while løkka hvis dette er sant
         return True
 
@@ -144,10 +143,10 @@ while True:
                 riktige.append(hemmelig_bokstav)
             print("\n" * 7)  # Får 7 linjeskift.
 
-    if galgen(feil):  # Returnerer "True" om for mange feil.
+    if galgen(feil):  # Returnerer "True" om spilleren har for mange feil.
         break
 
-    if seier(riktige, hemmelig_ord):
+    if seier(riktige, hemmelig_ord):  # Returnerer "True" om spilleren gjetter hele ordet.
         break
 
     print("\n               " + blanks + "")
@@ -158,6 +157,6 @@ while True:
         print("", end='')
         print(bokstav, end='')
 
-    hent_gjetting = gjett_bokstav()  # Lager en ny variabel som henter gjettingen
-    if hent_gjetting and hent_gjetting not in hemmelig_ord:  # Hvis gjetting ikke er i ordet
-        feil += 1  # Blir et plusset på en feil
+    hent_gjetting = gjett_bokstav()  
+    if hent_gjetting and hent_gjetting not in hemmelig_ord:
+        feil += 1  # Sporer antall feil spilleren tar.
