@@ -6,9 +6,7 @@ def gjett_bokstav():  # Returnerer en gjettet bokstav om den følger kriteriene.
 
     alfabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ"
 
-    bokstav_gjettet = input("Gjett en bokstav: ").upper()
-
-    print()
+    bokstav_gjettet = input("\nGjett en bokstav: ").upper()
 
     # hvis gjetting allerede er i hemmelig ord printes dette
     if bokstav_gjettet in gjettede_bokstaver:
@@ -152,10 +150,7 @@ while True:
     print("\n               " + blanks + "")
     print("\n\n         ", end='  ')
 
-    for bokstav in gjettede_bokstaver:
-        # For hver verdi i gjettede_bokstaver printer den hver verdi i listen
-        print("", end='')
-        print(bokstav, end='')
+    print(f"\nGjettede bokstaver: [{', '.join(gjettede_bokstaver)}]")
 
     hent_gjetting = gjett_bokstav()  
     if hent_gjetting and hent_gjetting not in hemmelig_ord:
