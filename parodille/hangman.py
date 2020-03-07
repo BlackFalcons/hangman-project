@@ -23,11 +23,11 @@ def gjett_bokstav():  # Returnerer en gjettet bokstav om den følger kriteriene.
 
 
 def galgen(antall_feil):
-    if antall_feil < 6:
-        print(galge[antall_feil + 1])  # Printer galgen etter hvor mange feil brukeren har.
+    if antall_feil <= 6:
+        print(galge[antall_feil])  # Printer galgen etter hvor mange feil brukeren har.
         return False
     else:
-        print(galge[antall_feil + 1])
+        print(galge[antall_feil])
         print(f"\n                  Du har tapt. Ordet var {hemmelig_ord}")
         #  slutter while løkka hvis dette er sant
         return True
@@ -129,7 +129,7 @@ print("Start å gjette...")
 
 blanks = '-' * len(hemmelig_ord)  # Printer - for hver bokstav av lengden i hemmelig ord
 
-feil = -1
+feil = 0
 riktige = []
 
 gjettede_bokstaver = []
