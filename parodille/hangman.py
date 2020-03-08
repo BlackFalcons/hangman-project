@@ -2,8 +2,11 @@ from time import sleep as wait
 from random import choice as rand_choice
 
 
-def gjett_bokstav():  # Returnerer en gjettet bokstav om den følger kriteriene.
+def avstand(antall):
+    return " " * antall
 
+
+def gjett_bokstav():  # Returnerer en gjettet bokstav om den følger kriteriene.
     alfabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ"
 
     bokstav_gjettet = input("\nGjett en bokstav: ").upper()
@@ -26,7 +29,7 @@ def galgen(antall_feil):
         return False
     else:
         print(galge[antall_feil])
-        print(f"\n                  Du har tapt. Ordet var {hemmelig_ord}")
+        print(f"\n{avstand(18)}Du har tapt. Ordet var {hemmelig_ord}")
         #  slutter while løkka hvis dette er sant
         return True
 
@@ -112,7 +115,6 @@ galge = ['''
 with open('ordliste.txt', encoding="utf8") as fil:
     ordliste = fil.readlines()
 
-
 hemmelig_ord = rand_choice(ordliste).upper().strip()  # Hent hemmelig ord fra ordliste
 
 # Spør om navn for å være hyggelig
@@ -147,11 +149,10 @@ while True:
     if seier(riktige, hemmelig_ord):  # Returnerer "True" om spilleren gjetter hele ordet.
         break
 
-    print("\n               " + blanks + "")
-    print("\n\n         ", end='  ')
+    print(f"\n{avstand(16)}{blanks}\n")
 
-    print(f"\nGjettede bokstaver: [{', '.join(gjettede_bokstaver)}]")
+    print(f"\nGjettede bokstaver: {', '.join(gjettede_bokstaver)}")
 
-    hent_gjetting = gjett_bokstav()  
+    hent_gjetting = gjett_bokstav()
     if hent_gjetting and hent_gjetting not in hemmelig_ord:
         feil += 1  # Sporer antall feil spilleren tar.
