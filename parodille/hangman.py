@@ -32,7 +32,6 @@ def galgen(antall_feil: int) -> bool:
     else:
         print(galge[antall_feil])
         print(f"\n{avstand(18)}Du har tapt. Ordet var {hemmelig_ord}")
-        # slutter while løkka hvis dette er sant
         return True
 
 
@@ -158,6 +157,6 @@ while True:
     if len(gjettede_bokstaver) > 0:
         print(f"Gjettede bokstaver: {', '.join(gjettede_bokstaver)}")
 
-    hent_gjetting = gjett_bokstav()
-    if len(hent_gjetting) == 1 and hent_gjetting not in hemmelig_ord:
+    gjettet_bokstav = gjett_bokstav()
+    if len(gjettet_bokstav) == 1 and gjettet_bokstav not in hemmelig_ord:
         feil += 1  # Sporer antall feil spilleren tar.
