@@ -2,11 +2,11 @@ from time import sleep as wait
 from random import choice as rand_choice
 
 
-def avstand(antall):
+def avstand(antall: int) -> str: # Function annotation kan du lese om her: https://www.python.org/dev/peps/pep-3107/
     return " " * antall
 
 
-def gjett_bokstav():  # Returnerer en gjettet bokstav om den følger kriteriene.
+def gjett_bokstav() -> str:  # Returnerer en gjettet bokstav om den følger kriteriene.
     alfabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ"
 
     bokstav_gjettet = input("\nGjett en bokstav: ").upper()
@@ -23,7 +23,7 @@ def gjett_bokstav():  # Returnerer en gjettet bokstav om den følger kriteriene.
         return bokstav_gjettet
 
 
-def galgen(antall_feil):
+def galgen(antall_feil: int) -> bool:
     if antall_feil <= 6:
         print(galge[antall_feil])  # Printer galgen etter hvor mange feil brukeren har.
         return False
@@ -34,7 +34,7 @@ def galgen(antall_feil):
         return True
 
 
-def seier(riktige_bokstaver, hemmelige_ordet):
+def seier(riktige_bokstaver: list, hemmelige_ordet: list) -> bool:
     riktige_bokstaver_len = len(riktige_bokstaver)
     hemmelig_ord_len = len(hemmelige_ordet)
 
@@ -137,9 +137,10 @@ gjettede_bokstaver = []
 while True:
     for index, hemmelig_bokstav in enumerate(hemmelig_ord):  # Lager en index og iterer over bokstavene
         if hemmelig_bokstav in gjettede_bokstaver:
+            # Printer ut en - for hver bokstav i hemmelig_ord variabelen
             blanks = blanks[:index] + hemmelig_ord[index] + blanks[index + 1:]
-            # Blanks = -, så printes ut en - for hver bokstav i hemmelig ord
-            if hemmelig_ord.count(hemmelig_bokstav) != riktige.count(hemmelig_bokstav):
+            if hemmelig_ord.count(hemmelig_bokstav) != riktige.count(
+                    hemmelig_bokstav):  # Sjekker om det er mange nok bokstaver i programmet
                 riktige.append(hemmelig_bokstav)
             print("\n" * 7)  # Får 7 linjeskift.
 
