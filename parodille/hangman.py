@@ -43,7 +43,7 @@ def seier(riktige_bokstaver: list, hemmelige_ordet: list) -> bool:
     if riktige_bokstaver_len == hemmelig_ord_len:
         print(galge[8])  # printer ut vinner bilde
         # slutter while løkka hvis dette er feil
-        return False
+        return True
 
 
 """Dette programmet er spillet hangman. Så det tar et tilfeldig ord og
