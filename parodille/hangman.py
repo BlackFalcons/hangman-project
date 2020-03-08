@@ -150,8 +150,8 @@ while True:
         break
 
     print(f"\n{avstand(16)}{blanks}\n")
-
-    print(f"\nGjettede bokstaver: {', '.join(gjettede_bokstaver)}")
+    if len(gjettede_bokstaver) > 0:
+        print(f"Gjettede bokstaver: {', '.join(gjettede_bokstaver)}")
 
     hent_gjetting = gjett_bokstav()
     if hent_gjetting and hent_gjetting not in hemmelig_ord:
