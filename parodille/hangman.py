@@ -1,5 +1,6 @@
 from time import sleep as wait
 from random import choice as rand_choice
+from typing import List
 
 
 def avstand(antall: int) -> str: # Function annotation kan du lese om her: https://www.python.org/dev/peps/pep-3107/
@@ -14,10 +15,13 @@ def gjett_bokstav() -> str:  # Returnerer en gjettet bokstav om den følger krit
     # hvis gjetting allerede er i hemmelig ord printes dette
     if bokstav_gjettet in gjettede_bokstaver:
         print(f"  \"{bokstav_gjettet}\" Har allerede blitt valgt, velg en annen bokstav.")
+        return ""
     elif len(bokstav_gjettet) != 1:
         print(f"  Du kan bare skrive en bokstav om gangen.")
+        return ""
     elif bokstav_gjettet not in alfabet:
         print(f"  \"{bokstav_gjettet}\" Er ikke en bokstav, du kan kun velge bokstaver.")
+        return ""
     else:
         gjettede_bokstaver.append(bokstav_gjettet)  # legger inn gjetting i gjettede bokstaver.
         return bokstav_gjettet
@@ -34,16 +38,18 @@ def galgen(antall_feil: int) -> bool:
         return True
 
 
-def seier(riktige_bokstaver: list, hemmelige_ordet: list) -> bool:
+def seier(riktige_bokstaver: List[str], hemmelige_ordet: str) -> bool:
+    # Viser at brukeren har vunnet
     riktige_bokstaver_len = len(riktige_bokstaver)
     hemmelig_ord_len = len(hemmelige_ordet)
 
-    print(f"riktige: {riktige_bokstaver_len}\nOrd lengde: {hemmelig_ord_len}")
-    # Viser at brukeren har vunnet
     if riktige_bokstaver_len == hemmelig_ord_len:
         print(galge[8])  # printer ut vinner bilde
         # slutter while løkka hvis dette er feil
         return True
+    else:
+        print(f"riktige: {riktige_bokstaver_len}\nOrd lengde: {hemmelig_ord_len}")
+        return False
 
 
 """Dette programmet er spillet hangman. Så det tar et tilfeldig ord og
@@ -130,9 +136,9 @@ print("Start å gjette...")
 blanks = '-' * len(hemmelig_ord)  # Printer - for hver bokstav av lengden i hemmelig ord
 
 feil = 0
-riktige = []
+riktige: List[str] = []
 
-gjettede_bokstaver = []
+gjettede_bokstaver: List[str] = []
 
 while True:
     for index, hemmelig_bokstav in enumerate(hemmelig_ord):  # Lager en index og iterer over bokstavene
@@ -155,5 +161,5 @@ while True:
         print(f"Gjettede bokstaver: {', '.join(gjettede_bokstaver)}")
 
     hent_gjetting = gjett_bokstav()
-    if hent_gjetting and hent_gjetting not in hemmelig_ord:
+    if len(hent_gjetting) == 1 and hent_gjetting not in hemmelig_ord:
         feil += 1  # Sporer antall feil spilleren tar.
