@@ -15,16 +15,14 @@ def gjett_bokstav() -> str:  # Returnerer en gjettet bokstav om den følger krit
     # hvis gjetting allerede er i hemmelig ord printes dette
     if bokstav_gjettet in gjettede_bokstaver:
         print(f"  \"{bokstav_gjettet}\" Har allerede blitt valgt, velg en annen bokstav.")
-        return ""
     elif len(bokstav_gjettet) != 1:
         print(f"  Du kan bare skrive en bokstav om gangen.")
-        return ""
     elif bokstav_gjettet not in alfabet:
         print(f"  \"{bokstav_gjettet}\" Er ikke en bokstav, du kan kun velge bokstaver.")
-        return ""
     else:
         gjettede_bokstaver.append(bokstav_gjettet)  # legger inn gjetting i gjettede bokstaver.
         return bokstav_gjettet
+    return ""
 
 
 def galgen(antall_feil: int) -> bool:
@@ -34,7 +32,7 @@ def galgen(antall_feil: int) -> bool:
     else:
         print(galge[antall_feil])
         print(f"\n{avstand(18)}Du har tapt. Ordet var {hemmelig_ord}")
-        #  slutter while løkka hvis dette er sant
+        # slutter while løkka hvis dette er sant
         return True
 
 
