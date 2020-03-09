@@ -115,7 +115,7 @@ galge = ['''
        ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆''']
 
 # importerer en laget ordliste fra dokumenter
-with open('ordliste.txt', "r", encoding="utf8", errors="ignore") as fil:
+with open('ordliste.txt', "r") as fil:
     ordliste = fil.readlines()
 
 hemmelig_ord = rand_choice(ordliste).upper().strip()  # Hent hemmelig ord fra ordliste
@@ -156,7 +156,7 @@ while True:
     print(f"\n{avstand(16)}{blanks}\n")
     if len(gjettede_bokstaver) > 0:
         print(f"Gjettede bokstaver: {', '.join(gjettede_bokstaver)}")
-
+    print(hemmelig_ord)
     gjettet_bokstav = gjett_bokstav()
     if gjettet_bokstav and gjettet_bokstav not in hemmelig_ord:
         feil += 1  # Sporer antall feil spilleren tar.
