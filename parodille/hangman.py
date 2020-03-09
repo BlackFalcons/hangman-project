@@ -1,13 +1,13 @@
 from time import sleep as wait
 from random import choice as rand_choice
-from typing import List
+from typing import List, Union
 
 
-def avstand(antall: int) -> str: # Function annotation kan du lese om her: https://www.python.org/dev/peps/pep-3107/
+def avstand(antall: int) -> str:  # Function annotation kan du lese om her: https://www.python.org/dev/peps/pep-3107/
     return " " * antall
 
 
-def gjett_bokstav() -> str:  # Returnerer en gjettet bokstav om den følger kriteriene.
+def gjett_bokstav() -> Union[None, str]:  # Returnerer en gjettet bokstav om den følger kriteriene.
     alfabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ"
 
     bokstav_gjettet = input("\nGjett en bokstav: ").upper()
@@ -22,7 +22,7 @@ def gjett_bokstav() -> str:  # Returnerer en gjettet bokstav om den følger krit
     else:
         gjettede_bokstaver.append(bokstav_gjettet)  # legger inn gjetting i gjettede bokstaver.
         return bokstav_gjettet
-    return ""
+    return None
 
 
 def galgen(antall_feil: int) -> bool:
@@ -115,7 +115,7 @@ galge = ['''
        ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆ ☆''']
 
 # importerer en laget ordliste fra dokumenter
-with open('ordliste.txt', encoding="utf8") as fil:
+with open('ordliste.txt', "r", encoding="utf8", errors="ignore") as fil:
     ordliste = fil.readlines()
 
 hemmelig_ord = rand_choice(ordliste).upper().strip()  # Hent hemmelig ord fra ordliste
@@ -158,5 +158,5 @@ while True:
         print(f"Gjettede bokstaver: {', '.join(gjettede_bokstaver)}")
 
     gjettet_bokstav = gjett_bokstav()
-    if len(gjettet_bokstav) == 1 and gjettet_bokstav not in hemmelig_ord:
+    if gjettet_bokstav and gjettet_bokstav not in hemmelig_ord:
         feil += 1  # Sporer antall feil spilleren tar.
