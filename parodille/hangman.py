@@ -1,6 +1,7 @@
 from time import sleep as wait
 from random import choice as rand_choice
 from typing import List, Union
+from string import ascii_uppercase as alfabet
 
 
 def avstand(antall: int) -> str:  # Function annotation kan du lese om her: https://www.python.org/dev/peps/pep-3107/
@@ -8,8 +9,6 @@ def avstand(antall: int) -> str:  # Function annotation kan du lese om her: http
 
 
 def gjett_bokstav() -> Union[None, str]:  # Returnerer en gjettet bokstav om den følger kriteriene.
-    alfabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ"
-
     bokstav_gjettet = input("\nGjett en bokstav: ").upper()
 
     # hvis gjetting allerede er i hemmelig ord printes dette
